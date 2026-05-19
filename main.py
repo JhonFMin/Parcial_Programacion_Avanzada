@@ -7,16 +7,16 @@ def main()-> None:
         "hungary",
         "oman",
         "nepal",
-        "yemen",
+        "yemen",            
         "egypt",
         "laos",
         "estonia",
         "india",
         "nigeria",
-        "Yibuti", #-> No encontre otro pais con "Y" xd, este no sale en la API, por ende, dara un error.
+        "yemen", #-> No encontre otro pais con "Y" xd
         "spain",
     ]
-    paises =api.by_nombres(nombres)
+    paises =api.by_nombres_concurrencia(nombres)
     if paises:
         paises[0].comparar(paises[1:])
 

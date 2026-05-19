@@ -1,5 +1,5 @@
 import requests
-
+import time
 from requests.exceptions import HTTPError, ConnectionError, Timeout
 from concurrent.futures import ThreadPoolExecutor
 
@@ -47,6 +47,7 @@ class CountryAPI:
     def by_nombre(self, nombre:str) -> Country | None:
         url= f"{BASE}/name/{nombre}?fullText=true"
         try:
+            
             r=requests.get(url,timeout=5)
             r.raise_for_status()
             return Country(r.json()[0])
@@ -60,14 +61,21 @@ class CountryAPI:
     
     def by_region(self, region:str)-> list[Country]:
         url= f"{BASE}/region/{region}"
+        
         r=requests.get(url, timeout=5)
         r.raise_for_status()    
         return [Country(p) for p in r.json()]
     
     
-    def by_nombres(self,nombres:list)-> list[Country]:
-        with ThreadPoolExecutor() as executor:
+    def by_nombres_concurrencia(self,nombres:list)-> list[Country]:
+        inicio = time.perf_counter()
+
+        with ThreadPoolExecutor(max_workers=12) as executor:
             paises= list(executor.map(self.by_nombre,nombres))
+        fin = time.perf_counter()
+        print(f"Demora en concurrencia: {fin - inicio:.4f} segundos")   
         return [p for p in paises if p is not None]
+
     
+        
     
