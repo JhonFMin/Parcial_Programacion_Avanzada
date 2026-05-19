@@ -19,7 +19,7 @@ Se modeló la solución con Programación Orientada a Objetos mediante las clase
 - E → Estonia
 - I → India
 - N → Nigeria
-- Y → Yibuti (intento no encontrado por la API, genera error 404 controlado)
+- Y → Yemen (No existen mas paises con "Y")
 - S → Spain
 
 ## Clase Country
@@ -30,6 +30,3 @@ También calcula la densidad poblacional y permite comparar varios países.
 La clase `CountryAPI` se encarga de hacer las consultas a la API REST Countries.
 Incluye métodos para buscar un país por nombre, buscar países por región y consultar varios nombres en paralelo con `ThreadPoolExecutor`.
 
-## Nota
-En el caso de la segunda letra `Y` del nombre Yeleinys, no se encontró otro país válido en la API con coincidencia exacta usando `fullText=true`.
-Por esta razón, ese intento produce un error 404 controlado por el programa.
