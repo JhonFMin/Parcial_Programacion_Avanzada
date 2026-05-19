@@ -25,20 +25,21 @@ class Country:
     def density(self)-> float:
         return self.poblacion/ self.area if self.area else 0
     
-    def comparar(self, otros:list) ->None:
-        todos=[self]+ otros
-        mayor_poblacion= max(todos,key=lambda p: p.poblacion)
-        mayor_area= max(todos, key=lambda p: p.area)
-        mayor_densidad= max(todos, key=lambda p: p.density())
-        print("")
+    def comparar(self, otros: list) -> None:
+        todos = [self] + otros
+        mayor_poblacion = max(todos, key=lambda p: p.poblacion)
+        mayor_area = max(todos, key=lambda p: p.area)
+        mayor_densidad = max(todos, key=lambda p: p.density())
 
-        print ("Pais  --  Poblacion  --  Area  --  Densidad")
-        print("─────────────────────────────────────────────────")
+        print()
+        print("─" * 78)
+        print(f"{'PAIS':^15} {'POBLACION':^15} {'AREA':^15} {'DENSIDAD':^15}")
+        print("─" * 78)
+
         for p in todos:
-            print(
-                f"{p.nombre} -- {p.poblacion} -- {p.area} -- {p.density():.2f} hab/km^2"
-            )
-        print("─────────────────────────────────────────────────")
+            print(f"{p.nombre:^15} {p.poblacion:^15,} {p.area:^15,.2f} {p.density():^15.2f} hab/km^2")
+
+        print("─" * 78)
         print(f"Mayor poblacion: {mayor_poblacion.nombre}")
         print(f"Mayor area: {mayor_area.nombre}")
         print(f"Mayor densidad: {mayor_densidad.nombre}")
@@ -70,7 +71,7 @@ class CountryAPI:
     def by_nombres_concurrencia(self,nombres:list)-> list[Country]:
         inicio = time.perf_counter()
 
-        with ThreadPoolExecutor(max_workers=12) as executor:
+        with ThreadPoolExecutor(max_workers=6) as executor:
             paises= list(executor.map(self.by_nombre,nombres))
         fin = time.perf_counter()
         print(f"Demora en concurrencia: {fin - inicio:.4f} segundos")   
