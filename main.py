@@ -1,19 +1,11 @@
-from country import Country
+from country import CountryAPI
 
+api = CountryAPI()
 
+nombres = ["spain", "denmark", "uzbekistan"]
 
-data = {
-    "name": {"common": "Argentina"},
-    "capital": ["Buenos Aires"],
-    "population": 45376763,
-    "area": 2780400.0,
-    "region": "Americas"
-}
+paises = api.by_names(nombres)
 
-pais = Country(data)
-
-print(pais.nombre)
-print(pais.capital)
-print(pais.poblacion)
-print(pais.area)
-print(pais.region)
+for pais in paises:
+    print(pais)
+    print("-" * 40)

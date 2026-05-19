@@ -1,6 +1,7 @@
 import requests
 
 from requests.exceptions import HTTPError, ConnectionError, Timeout
+from concurrent.futures import ThreadPoolExecutor
 
 api= "https://restcountries.com/v3.1"
 
@@ -18,7 +19,7 @@ class Country:
             f"Capital: {self.capital}\n"
             f"Poblacion: {self.poblacion:,}\n"
             f"Area: {self.area: ,.2f}\n"
-            f"Densidad: {self.density():.2f}hab/km^2"
+            f"Densidad: {self.density():.2f} hab/km^2"
             
         )
     def density(self)-> float:
@@ -44,6 +45,11 @@ class CountryAPI:
     def by_region(self, region:str)-> list[Country]:
         url= f"{api}/region/{region}"
         r=requests.get(url, timeout=5)
-        r.raise_for_status()
+        r.raise_for_status()    
         return [Country(p) for p in r.json()]
     
+    def by_names(self,names:list):
+        with ThreadPoolExecutor() as executor:
+            paises= list(executor.map(self.by_name,names))
+        return [p for p in paises if p is not None]
+        
