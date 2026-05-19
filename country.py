@@ -30,6 +30,8 @@ class Country:
         mayor_poblacion= max(todos,key=lambda p: p.poblacion)
         mayor_area= max(todos, key=lambda p: p.area)
         mayor_densidad= max(todos, key=lambda p: p.density())
+        print("")
+
         print ("Pais  --  Poblacion  --  Area  --  Densidad")
         print("─────────────────────────────────────────────────")
         for p in todos:
