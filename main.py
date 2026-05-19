@@ -1,11 +1,24 @@
 from country import CountryAPI
 
-api = CountryAPI()
 
-nombres = ["spain", "denmark", "uzbekistan"]
+def main() -> None:
+    api = CountryAPI()
+    nombres = [
+        "spain",
+        "denmark",
+        "uganda",
+        "algeria",
+        "romania",
+        "oman",
+        "japan",
+        "austria",
+        "nepal"
+    ]
+    paises = api.by_nombres(nombres)
 
-paises = api.by_names(nombres)
+    if paises:
+        paises[0].comparar(paises[1:])
 
-for pais in paises:
-    print(pais)
-    print("-" * 40)
+
+if __name__ == "__main__":
+    main()
