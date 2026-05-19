@@ -8,7 +8,7 @@ BASE= "https://restcountries.com/v3.1"
 class Country: 
     def __init__(self, data: dict)-> None:
         self.nombre=data["name"]["common"]
-        self.cBASEtal= data.get("cBASEtal",["--"])[0]
+        self.capital= data.get("capital",["--"])[0]
         self.poblacion= data.get("population",0)
         self.area= data.get("area",0)
         self.region = data.get("region", "--")
@@ -16,7 +16,7 @@ class Country:
     def __str__(self)-> str:
         return(
             f"{self.nombre} ({self.region})\n"
-            f"CBASEtal: {self.cBASEtal}\n"
+            f"Capital: {self.capital}\n"
             f"Poblacion: {self.poblacion:,}\n"
             f"Area: {self.area:,.2f}\n"
             f"Densidad: {self.density():.2f} hab/km^2"
@@ -51,7 +51,7 @@ class CountryAPI:
             r.raise_for_status()
             return Country(r.json()[0])
         except Timeout:
-            print(f"Demasiado tiempo de espera para la BASE al buscar {nombre}")
+            print(f"Demasiado tiempo de espera para la API al buscar {nombre}")
         except ConnectionError:
             print(f"No hay acceso a internet al buscar {nombre}")
         except HTTPError as e:
