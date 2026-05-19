@@ -13,7 +13,7 @@ def main()-> None:
         "estonia",
         "india",
         "nigeria",
-        "Yibuti", #-> No encontre otro pais con "Y" xd, ese no sale en la API, por ende, dara un error.
+        "Yibuti", #-> No encontramos otro pais con "Y" xd, ese no sale en la API, por ende, dara un error.
         "spain",
     ]
     paises =api.by_nombres(nombres)
