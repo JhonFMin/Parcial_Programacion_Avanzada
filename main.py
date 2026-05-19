@@ -1,9 +1,19 @@
-import requests
+from country import Country
 
-BASE = "https://restcountries.com/v3.1"
 
-def get_country(name: str) -> dict:
-    url = f"{BASE}/name/{name}"
-    r = requests.get(url, timeout=5)
-    r.raise_for_status()
-    return r.json()[0]
+
+data = {
+    "name": {"common": "Argentina"},
+    "capital": ["Buenos Aires"],
+    "population": 45376763,
+    "area": 2780400.0,
+    "region": "Americas"
+}
+
+pais = Country(data)
+
+print(pais.nombre)
+print(pais.capital)
+print(pais.poblacion)
+print(pais.area)
+print(pais.region)
