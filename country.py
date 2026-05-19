@@ -30,15 +30,17 @@ class Country:
         mayor_poblacion= max(todos,key=lambda p: p.poblacion)
         mayor_area= max(todos, key=lambda p: p.area)
         mayor_densidad= max(todos, key=lambda p: p.density())
-        print ("Pais - Poblacion - Area - Densidad")
+        print ("Pais  --  Poblacion  --  Area  --  Densidad")
+        print("─────────────────────────────────────────────────")
         for p in todos:
             print(
-                f"{p.nombre} - {p.poblacion} - {p.area} - {p.density():.2f} hab/km^2"
+                f"{p.nombre} -- {p.poblacion} -- {p.area} -- {p.density():.2f} hab/km^2"
             )
-        print("\n─────────────────────────────────────────────────")
-        print(f"Mayor población : {mayor_poblacion.nombre}")
-        print(f"Mayor área      : {mayor_area.nombre}")
-        print(f"Mayor densidad  : {mayor_densidad.nombre}")
+        print("─────────────────────────────────────────────────")
+        print(f"Mayor poblacion: {mayor_poblacion.nombre}")
+        print(f"Mayor area: {mayor_area.nombre}")
+        print(f"Mayor densidad: {mayor_densidad.nombre}")
+        
 class CountryAPI:
     def by_nombre(self, nombre:str) -> Country | None:
         url= f"{api}/name/{nombre}?fullText=true"
@@ -60,7 +62,7 @@ class CountryAPI:
         r.raise_for_status()    
         return [Country(p) for p in r.json()]
     
-    def by_nombres(self,nombres:list):
+    def by_nombres(self,nombres:list)-> list[Country]:
         with ThreadPoolExecutor() as executor:
             paises= list(executor.map(self.by_nombre,nombres))
         return [p for p in paises if p is not None]
