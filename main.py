@@ -2,7 +2,7 @@ from country import CountryAPI
 
 def main()-> None:
     api= CountryAPI()
-    nombres=[  #Jhon y Yeleinys
+    nombres=[  # Jhon y Yeleinys
         "japan",
         "hungary",
         "oman",
@@ -13,7 +13,7 @@ def main()-> None:
         "estonia",
         "india",
         "nigeria",
-        "Yibuti", #-> No encontre otro pais con "Y" xd, ese no sale en la API, por ende, dara un error.
+        "Yibuti", #-> No encontre otro pais con "Y" xd, este no sale en la API, por ende, dara un error.
         "spain",
     ]
     paises =api.by_nombres(nombres)

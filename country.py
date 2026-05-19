@@ -62,6 +62,7 @@ class CountryAPI:
         r.raise_for_status()    
         return [Country(p) for p in r.json()]
     
+    
     def by_nombres(self,nombres:list)-> list[Country]:
         with ThreadPoolExecutor() as executor:
             paises= list(executor.map(self.by_nombre,nombres))

@@ -2,7 +2,7 @@
 
 ## Integrantes
 - Jhon Mindiola — Código: 0182410099
-- Yeleiny Gomez — Código: 0182410068
+- Yeleinys Gomez — Código: 0182410068
 
 ## Descripción
 Este proyecto consume la API REST Countries usando Python y la librería requests.
