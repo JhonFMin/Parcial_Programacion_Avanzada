@@ -1,7 +1,7 @@
 import requests
 import time
 from requests.exceptions import HTTPError, ConnectionError, Timeout
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BASE= "https://restcountries.com/v3.1"
 
@@ -68,15 +68,19 @@ class CountryAPI:
         return [Country(p) for p in r.json()]
     
     
-    def by_nombres_concurrencia(self,nombres:list)-> list[Country]:
+    def by_nombres_concurrencia(self, nombres: list) -> list[Country]:
         inicio = time.perf_counter()
-
         with ThreadPoolExecutor(max_workers=6) as executor:
-            paises= list(executor.map(self.by_nombre,nombres))
-        fin = time.perf_counter()
-        print(f"Demora en concurrencia: {fin - inicio:.4f} segundos")   
-        return [p for p in paises if p is not None]
+            futuros = {executor.submit(self.by_nombre, nombre): nombre for nombre in nombres}
+            paises = []
+            for futuro in as_completed(futuros):
+                pais = futuro.result()
+                if pais is not None:
+                    paises.append(pais)
 
-    
+        fin = time.perf_counter()
+        print(f"Demora en concurrencia: {fin - inicio:.4f} segundos")
+        return paises
+
         
     
